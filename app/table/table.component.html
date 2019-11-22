@@ -1,62 +1,61 @@
 <div class="example-container mat-elevation-z8">
 
-<app-double-row-paginator #paginator [pageSize]="5" 
-    [pageSizeOptions]="[5, 10, 20]" style="text-align: right;">
-    </app-double-row-paginator>
+	<app-double-row-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" style="text-align: right;">
+	</app-double-row-paginator>
 
-  <mat-table #table [dataSource]="dataSource" matSort>
+	<mat-table #table [dataSource]="dataSource" matSort>
 
-    <!--- Note that these columns can be defined in any order.
+		<!--- Note that these columns can be defined in any order.
           The actual rendered columns are set as a property on the row definition" -->
 
 
-<!-- Position Column -->
-    <ng-container matColumnDef="symbole">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> az</mat-header-cell>
-      <mat-cell *matCellDef="let symbole"> </mat-cell>
-    </ng-container>
+		<!-- Position Column -->
+		<ng-container matColumnDef="symbole">
+			<mat-header-cell *matHeaderCellDef mat-sort-header> </mat-header-cell>
+			<mat-cell *matCellDef="let symbole">
+        <i [hidden]="RowToggle" class="material-icons">add</i>
+        <i [hidden]="!RowToggle" class="material-icons">remove</i>
+			</mat-cell>
+		</ng-container>
 
 
-    <!-- Position Column -->
-    <ng-container matColumnDef="position">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> No. </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
-    </ng-container>
+		<!-- Position Column -->
+		<ng-container matColumnDef="position">
+			<mat-header-cell *matHeaderCellDef mat-sort-header> No. </mat-header-cell>
+			<mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
+		</ng-container>
 
-    <!-- Name Column -->
-    <ng-container matColumnDef="name">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>
-        <span (click)="sortFilteredData('name')">
+		<!-- Name Column -->
+		<ng-container matColumnDef="name">
+			<mat-header-cell *matHeaderCellDef mat-sort-header>
+				<span (click)="sortFilteredData('name')">
           Name 
         </span>
-      </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
-    </ng-container>
+			</mat-header-cell>
+			<mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+		</ng-container>
 
-    <!-- Weight Column -->
-    <ng-container matColumnDef="weight">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Weight </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.weight}} </mat-cell>
-    </ng-container>
+		<!-- Weight Column -->
+		<ng-container matColumnDef="weight">
+			<mat-header-cell *matHeaderCellDef mat-sort-header> Weight </mat-header-cell>
+			<mat-cell *matCellDef="let element"> {{element.weight}} </mat-cell>
+		</ng-container>
 
-    <!-- Expanded Content Column - The detail row is made up of this one column -->
-    <ng-container matColumnDef="expandedDetail">
-      <mat-cell *matCellDef="let detail"> 
-        The symbol for {{detail.element.name}} is {{detail.element.symbol}}
-      </mat-cell>
-    </ng-container>
+		<!-- Expanded Content Column - The detail row is made up of this one column -->
+		<ng-container matColumnDef="expandedDetail">
+			<mat-cell *matCellDef="let detail">
+				The symbol for {{detail.element.name}} is {{detail.element.symbol}}
+			</mat-cell>
+		</ng-container>
 
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let element; let row; columns: displayedColumns;"
-            matRipple 
-            class="element-row" 
-            (click)="toggleRow(element)"></mat-row>
+		<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+		<mat-row *matRowDef="let element; let row; columns: displayedColumns;" matRipple class="element-row"
+			(click)="toggleRow(row)"></mat-row>
 
-    <mat-row *matRowDef="let row; columns: ['expandedDetail']; when: isExpansionDetailRow"
-            [@detailExpand]="row.element.show ? 'expanded' : 'collapsed'"
-            style="overflow: hidden"> 
-    </mat-row>
-  </mat-table>
+		<mat-row *matRowDef="let row; columns: ['expandedDetail']; when: isExpansionDetailRow"
+			[@detailExpand]="row.element.show ? 'expanded' : 'collapsed'" style="overflow: hidden">
+		</mat-row>
+	</mat-table>
 </div>
 
 
